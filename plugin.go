@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const configPrefix = "boot.database"
+const configPrefix = "boot.database."
 
 var defaultConfig map[string]interface{} = map[string]interface{}{
 	"enabled": true,
