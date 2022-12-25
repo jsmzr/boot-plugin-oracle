@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	plugin "github.com/jsmzr/boot-plugin"
+	"github.com/jsmzr/boot-plugin-oracle/connection"
 	_ "github.com/sijms/go-ora/v2"
 	"github.com/spf13/viper"
 )
@@ -16,13 +17,7 @@ var defaultConfig map[string]interface{} = map[string]interface{}{
 	"order":   5,
 }
 
-var globalConn *sql.DB
-
 type OraclePlugin struct{}
-
-func PrePare(statement string) (*sql.Stmt, error) {
-	return globalConn.Prepare(statement)
-}
 
 func (o *OraclePlugin) Load() error {
 	username := viper.GetString(configPrefix + "username")
@@ -35,7 +30,7 @@ func (o *OraclePlugin) Load() error {
 	if err := conn.Ping(); err != nil {
 		return err
 	}
-	globalConn = conn
+	connection.GlobalConn = conn
 	return nil
 }
 
