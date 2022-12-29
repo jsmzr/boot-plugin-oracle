@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	plugin "github.com/jsmzr/boot-plugin"
-	"github.com/jsmzr/boot-plugin-oracle/connection"
+	"github.com/jsmzr/boot-plugin-oracle/db"
 	_ "github.com/sijms/go-ora/v2"
 	"github.com/spf13/viper"
 )
@@ -30,7 +30,7 @@ func (o *OraclePlugin) Load() error {
 	if err := conn.Ping(); err != nil {
 		return err
 	}
-	connection.GlobalConn = conn
+	db.DB = conn
 	return nil
 }
 
@@ -43,8 +43,6 @@ func (o *OraclePlugin) Order() int {
 }
 
 func init() {
-	for key := range defaultConfig {
-		viper.SetDefault(configPrefix+key, defaultConfig[key])
-	}
+	plugin.InitDefaultConfig(configPrefix, defaultConfig)
 	plugin.Register("database", &OraclePlugin{})
 }

@@ -3,7 +3,7 @@ module github.com/jsmzr/boot-plugin-oracle
 go 1.17
 
 require (
-	github.com/jsmzr/boot-plugin v0.3.0
+	github.com/jsmzr/boot-plugin v0.4.0
 	github.com/sijms/go-ora/v2 v2.5.20
 	github.com/spf13/viper v1.14.0
 )
